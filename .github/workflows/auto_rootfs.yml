@@ -118,7 +118,6 @@ jobs:
         id: extract
         run: |  
              cd rootfs
-             sudo mkdir -p rootfs
              sudo tar xzf *.tar.gz
              sudo mount ${los}p2 rootfs
              (cd rootfs && sudo tar cfz /home/runner/work/ULO-sowo/ULO-sowo/rootfs/${{ inputs.rename_rootfs }}.tar.gz *)   
