@@ -57,6 +57,11 @@ on:
         required: true
         default: '-'
         type: string
+      rename_rootfs:
+        description: "ganti nama rootfs"
+        required: false
+        default: ""     
+        type: string  
 jobs: 
   build_ipk:
     permissions:
@@ -109,7 +114,14 @@ jobs:
             fi
           fi
         
-          
+      - name: Extract firmware
+        id: extract
+        run: |  
+             cd rootfs
+             sudo mkdir -p rootfs
+             sudo tar -xf *.tar.gz
+             sudo mount ${los}p2 rootfs
+             (cd rootfs && sudo tar cfz /home/runner/work/ULO-sowo/ULO-sowo/rootfs/${{ inputs.rename_rootfs }}.tar.gz *)   
       - name: Building OpenWrt
         run: |
           sudo chmod +x ulo2
