@@ -95,27 +95,27 @@ jobs:
 
       - name: Download ROOTFS via link
         run: |
-          cd build
+          cd rootfs
           if [ $(echo ${{ inputs.rootfs_url }} | grep "drive.") ]; then
             if [ $(echo ${{ inputs.rootfs_url }} | awk -F "/" '{print $6}') ]; then
               link_gdrive=$(echo ${{ inputs.rootfs_url }} | awk -F "/" '{print $6}')
             else
               link_gdrive=$(echo ${{ inputs.rootfs_url }} | awk -F "/" '{print $4}' | awk -F "?id=" '{print $2}'|awk -F "&export" '{print $1}')
             fi
-          sudo gdown ${link_gdrive} -O 
+          sudo gdown ${link_gdrive} -O ./rootfs/rootfs.tar.gz
           else
             if [ $(echo ${{ inputs.rootfs_url }} | grep "mediafire.com") ]; then
              sudo mediafire-dl ${{ inputs.rootfs_url }} && cd ..
              else
               if [ $(echo ${{ inputs.rootfs_url }} | grep "mega.nz") ]; then
                 file_mega=$(sudo mega-get ${{ inputs.rootfs_url }} | awk -F: '{print $2}')
-               sudo mv ${file_mega} 
+               sudo mv ${file_mega} ./rootfs
               else
-                sudo wget -q --no-check-certificate ${{ inputs.rootfs_url }} -P 
+                sudo wget -q --no-check-certificate ${{ inputs.rootfs_url }} -P ./rootfs
               fi
             fi
           fi
-          cp -rf ./build/*.tar.gz ./rootfs/${{ inputs.rename_rootfs }}.tar.gz
+          cp -rf ./rootfs/*.tar.gz ./rootfs/${{ inputs.rename_rootfs }}.tar.gz
         
           
       - name: Building OpenWrt
