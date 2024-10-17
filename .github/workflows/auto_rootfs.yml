@@ -115,7 +115,7 @@ jobs:
               fi
             fi
           fi
-          cp -rf./build/*.tar.gz ./rootfs/${{ inputs.rename_rootfs }}.tar.gz
+          cp -rf ./build/*.tar.gz ./rootfs/${{ inputs.rename_rootfs }}.tar.gz
         
           
       - name: Building OpenWrt
