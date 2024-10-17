@@ -115,7 +115,7 @@ jobs:
               fi
             fi
           fi
-          mv *.tar.gz ${{ inputs.rename_rootfs }}.tar.gz
+          mv ./rootfs/*.tar.gz ./rootfs${{ inputs.rename_rootfs }}.tar.gz
         
           
       - name: Building OpenWrt
